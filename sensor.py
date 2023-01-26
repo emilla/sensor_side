@@ -11,6 +11,7 @@ print("Server listening on Port " + str(PORT))
 connected = set()
 
 # The main behavior function for this server
+# This func is called echo because it just takes the message and sends it back with the "await conn.send(..)" line
 async def echo(websocket, path):
     print("A client just connected")
     # Store a copy of the connected client
