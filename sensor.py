@@ -3,7 +3,7 @@ import websockets
 import asyncio
 
 # Server data
-address = "ws://atom-radpi-01.local/"
+address = "ws://atom-radpi-01.local"
 PORT = 7890
 print("Server listening on Port " + str(PORT))
 
