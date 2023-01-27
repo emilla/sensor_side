@@ -18,14 +18,14 @@ async def echo(websocket, path):
     connected.add(websocket)
     # Handle incoming messages
     try:
-        async for message in websocket:
-            print("Received message from client: " + message)
-            
-            # Send a response to all connected clients
-            for conn in connected:
-                msg = input("Type a message:")
-                await conn.send(msg)
-          
+        while True:
+            async for message in websocket:
+                print("Received message from client: " + message)
+                
+                # Send a response to all connected clients
+                for conn in connected:
+                    msg = input("Type a message:")
+                    await conn.send(msg)
 
     # Handle disconnecting clients 
     except websockets.exceptions.ConnectionClosed as e:
