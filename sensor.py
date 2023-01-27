@@ -21,7 +21,7 @@ async def echo(websocket, path):
         async for message in websocket:
             print("Received message from client: " + message)
             for conn in connected:
-                conn.send(input())
+                await conn.send(input())
             
     # Handle disconnecting clients 
     except websockets.exceptions.ConnectionClosed as e:
