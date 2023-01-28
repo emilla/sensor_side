@@ -4,13 +4,11 @@ import time
 
 def get_distance():
     try:
-        sensor = DistanceSensor(echo=18, trigger=17)
+        sensor = DistanceSensor(12, 11)
         return sensor.take_measurement()
     except Exception as e:
         print(e)
         return 0
-    finally:
-        GPIO.cleanup()
 
 class DistanceSensor:
     def __init__(self, echo, trigger):
