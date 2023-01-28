@@ -9,10 +9,8 @@ address = "atom-radpi-01.local"
 PORT = 7890
 print("Server listening on Port " + str(PORT))
 
-
 # A set of connected ws clients
 connected = set()
-
 
 # The main behavior function for this server
 # This func is called echo because it just takes the message and sends it back with the "await conn.send(..)" line
@@ -29,9 +27,9 @@ async def serve_distance(websocket, path):
             #check if message is a request for distance     
             if request["request"] == "distance":
 
-                response = distance_sensor.get_distance()
+                response = json.dumps({"distance" : distance_sensor.get_distance()})
             else:
-                response = '{"error":"Message not understood"}' 
+                response = json.dumps({"error":"Message not understood"}) 
             for conn in connected:
                 await conn.send(response)
     # Handle disconnecting clients
