@@ -7,6 +7,6 @@ sensor = DistanceSensor(echo=18, trigger=17)
 def get_distance():
     distance = sensor.distance * 100
     time = sensor.timestamp
-    JSON = "distance:{}, time:{}}".format(distance, time)
+    JSON = "{'distance':'{}', 'time':'{}'}".format(distance, time)
     return JSON
 
