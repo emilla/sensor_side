@@ -1,35 +1,46 @@
 # Importing the relevant libraries
 import websockets
 import asyncio
+import distance_sensor
+import json
 
 # Server data
 address = "atom-radpi-01.local"
 PORT = 7890
 print("Server listening on Port " + str(PORT))
 
+
 # A set of connected ws clients
 connected = set()
 
+
 # The main behavior function for this server
 # This func is called echo because it just takes the message and sends it back with the "await conn.send(..)" line
-async def echo(websocket, path):
+async def serve_distance(websocket, path):
     print("A client just connected")
     # Store a copy of the connected client
     connected.add(websocket)
     # Handle incoming messages
     try:
-        async for message in websocket:
-            print("Received message from client: " + message)
+        async for request in websocket:
+            #convert request in JSON to python dictionary
+            request = json.loads(request)
+
+            #check if message is a request for distance     
+            if request["request"] == "distance":
+
+                response = distance_sensor.get_distance()
+            else:
+                response = '{"error":"Message not understood"}' 
             for conn in connected:
-                await conn.send(input("Send to Client: "))
-            
-    # Handle disconnecting clients 
+                await conn.send(response)
+    # Handle disconnecting clients
     except websockets.exceptions.ConnectionClosed as e:
         print("A client just disconnected")
     finally:
         connected.remove(websocket)
 
 # Start the server
-start_server = websockets.serve(echo, address, PORT)
+start_server = websockets.serve(serve_distance, address, PORT)
 asyncio.get_event_loop().run_until_complete(start_server)
 asyncio.get_event_loop().run_forever()
