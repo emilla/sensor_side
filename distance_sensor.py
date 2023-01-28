@@ -17,7 +17,7 @@ class DistanceSensor:
         self.pin_setup(echo, trigger)
         self.distance = 0
 
-    def pin_setup(echo=12, trigger=11):
+    def pin_setup(self, echo=12, trigger=11):
         GPIO.setmode(GPIO.BOARD)
         GPIO.setwarnings(False)
         GPIO.setup(trigger, GPIO.OUT)
