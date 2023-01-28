@@ -10,7 +10,7 @@ def get_distance():
         print(e)
         return 0
     finally:
-        del sensor
+        GPIO.cleanup()
 
 class DistanceSensor:
     def __init__(self, echo, trigger):
