@@ -1,7 +1,7 @@
 from gpiozero import DistanceSensor
 import time
 
-sensor = DistanceSensor(echo=11, trigger=7)
+sensor = DistanceSensor(echo=4, trigger=17)
 
 #function to get the distance in cm and time it was taken as a JSON string
 def get_distance():
