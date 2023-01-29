@@ -27,7 +27,7 @@ async def serve_distance(websocket, path):
             #check if message is a request for distance     
             if request["request"] == "distance":
 
-                response = json.dumps({"distance" : distance_sensor.get_distance()})
+                response = json.dumps({"result" : distance_sensor.get_distance()})
             else:
                 response = json.dumps({"error":"Message not understood"}) 
             for conn in connected:
