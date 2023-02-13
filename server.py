@@ -12,6 +12,7 @@ print("Server listening on Port " + str(PORT))
 # A set of connected ws clients
 connected = set()
 
+
 # The main behavior function for this server
 # This func is called echo because it just takes the message and sends it back with the "await conn.send(..)" line
 async def serve_distance(websocket, path):
@@ -21,15 +22,15 @@ async def serve_distance(websocket, path):
     # Handle incoming messages
     try:
         async for request in websocket:
-            #convert request in JSON to python dictionary
+            # convert request in JSON to python dictionary
             request = json.loads(request)
 
-            #check if message is a request for distance     
+            # check if message is a request for distance
             if request["request"] == "distance":
 
-                response = json.dumps({"result" : distance_sensor.get_distance()})
+                response = json.dumps({"result": distance_sensor.get_distance()})
             else:
-                response = json.dumps({"error":"Message not understood"}) 
+                response = json.dumps({"error": "Message not understood"})
             for conn in connected:
                 await conn.send(response)
     # Handle disconnecting clients
@@ -37,6 +38,7 @@ async def serve_distance(websocket, path):
         print("A client just disconnected")
     finally:
         connected.remove(websocket)
+
 
 # Start the server
 start_server = websockets.serve(serve_distance, address, PORT)
